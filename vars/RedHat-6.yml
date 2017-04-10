@@ -5,6 +5,8 @@ scan_user: clam
 update_user: clam
 clamav_daemon: clamd
 clamav_update: freshclam
+Foreground: "false"
+Bytecode: "false"
 
 clamav_packages:
 - clamav-db
@@ -15,6 +17,6 @@ clamav_packages:
 # Update virus signatures database each time role runs
 clamav_fresh: true
 ClamAVLogFile: /var/log/clamav/clamav.log
-LocalSocket: /var/run/clamd.scan/clamd.ctl
+LocalSocket: /var/run/clamav/clamd.ctl
 LocalSocketGroup: clam
 DatabaseOwner: clam
