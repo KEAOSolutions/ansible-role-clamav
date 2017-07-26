@@ -20,7 +20,6 @@ LogClean: "false"
 LogVerbose: "true"
 OfficialDatabaseOnly: "true"
 SelfCheck: 300
-Foreground: "true"
 Debug: "false"
 ScanPE: "true"
 MaxEmbeddedPE: 256M
@@ -75,7 +74,6 @@ StreamMaxLength: 256M
 LogTime: "true"
 LogFileUnlock: "false"
 LogFileMaxSize: 100M
-Bytecode: "true"
 BytecodeSecurity: Paranoid
 BytecodeTimeout: 60000
 OnAccessMaxFileSize: 256M
@@ -84,7 +82,4 @@ OnAccessDisableDDD: "true"
 OnAccessExtraScanning: "true"
 OnAccessMountPath:
  - name: /home
- - name: /var
- - name: /var/lib/docker
- - name: /var/tmp
 SafeBrowsing: "true"

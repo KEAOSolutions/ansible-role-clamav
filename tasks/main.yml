@@ -9,6 +9,15 @@
 - name: Include tasks suitable to our OS Family
   include: "{{ ansible_os_family }}.yml"
 
+- name: Set niceness of clamav-daemon within systemd to a lower priority
+  copy:
+    src: clamav-daemon.service
+    dest: /lib/systemd/system/clamav-daemon.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart ClamAV
+
 - name: Replace custom clamd.conf
   template:
     dest: "{{ clamd_path }}"
@@ -40,6 +49,7 @@
     name: "{{ clamav_daemon }}"
     state: started
     enabled: yes
+  tags: usb
 
 - name: Start freshclam daemon
   service:
@@ -47,6 +57,15 @@
     state: started
     enabled: yes
   when: "{{ freshclam_enabled }}"
+  tags: usb
+
+- name: Set cron job for scanning / at 12:00 on a Wednesday
+  cron:
+    name: clamdscan
+    minute: "0"
+    hour: "12"
+    dow: "4"
+    job: "systemd-cat --identifier='clamav-scan' clamdscan --multiscan --fdpass /"
 
 #- shell: "/usr/local/bin/freshclam_status"
 #  register: result
